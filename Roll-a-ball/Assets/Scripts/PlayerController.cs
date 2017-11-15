@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     private Vector3 inicialPosition;
     private Quaternion inicialRotation;
 
+    private float rotationAngle;
+
     void Start()
     {
         inicialPosition = transform.position;
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour {
 
         leftTurn = new Vector3(0, -0.5f, 0);
         rightTurn = new Vector3(0, +0.5f, 0);
+
+        rotationAngle = 1.0f;
     }
     //Before rendering a frame
     void Update()
@@ -43,13 +47,13 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.transform.Rotate(leftTurn,Space.World);
+            rb.transform.Rotate(transform.up, rotationAngle, Space.World);
             animation.SetBool("Moving", false);
 
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            rb.transform.Rotate(rightTurn,Space.World);
+            rb.transform.Rotate(transform.up, -rotationAngle, Space.World);
             animation.SetBool("Moving", false);
         }
         else
@@ -64,6 +68,7 @@ public class PlayerController : MonoBehaviour {
         transform.position = inicialPosition;
         transform.rotation = inicialRotation;
     }   
+    
     //Before performing physics calculations
     //void FixedUpdate()
     //{

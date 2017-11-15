@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roll-a-ball", "Roll-a-ball.csproj", "{02E1DA8B-4925-CF62-4F39-C2A56288F4F7}"
 EndProject
 Global
