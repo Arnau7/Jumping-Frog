@@ -23,12 +23,13 @@ public class CameraController : MonoBehaviour {
 	// Runs every frame, after all items have been processed
 	void LateUpdate ()
     {
+        
         Vector3 desiredPosition = (player.transform.position + offset);
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, cameraSmooth);
 
         float angle = Mathf.Acos(Vector3.Dot(Vector3.forward, player.transform.forward));
 
-        transform.position = smoothedPosition;
+        //transform.position = smoothedPosition;
         transform.RotateAround(player.transform.position, player.transform.up, -angle);
         transform.LookAt(player.transform.position);
 

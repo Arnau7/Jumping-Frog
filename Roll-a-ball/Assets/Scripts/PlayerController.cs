@@ -9,13 +9,15 @@ public class PlayerController : MonoBehaviour {
     Animator animation;
     Vector3 leftTurn;
     Vector3 rightTurn;
-    public Rigidbody rb;
+    private Rigidbody rb;
     public GameObject resetButton;
 
     private Vector3 inicialPosition;
     private Quaternion inicialRotation;
 
     private float rotationAngle;
+    private float angle;
+    private Quaternion rot;
 
     void Start()
     {
@@ -28,46 +30,46 @@ public class PlayerController : MonoBehaviour {
         leftTurn = new Vector3(0, -0.5f, 0);
         rightTurn = new Vector3(0, +0.5f, 0);
 
-        rotationAngle = 1.0f;
+        rotationAngle = 5.0f;
     }
     //Before rendering a frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (InputManager.Up())
         {
-            rb.transform.position += Vector3.forward * speed * Time.deltaTime;
-            //isMoving = true;
+            //rb.AddForce(Vector3.forward * speed, ForceMode.VelocityChange);
+            rb.velocity = Vector3.forward * speed;
             animation.SetBool("Moving", true);
         }
-        else if (Input.GetKey(KeyCode.DownArrow))
+        else if (InputManager.Down())
         {
-            rb.transform.position += Vector3.back * speed * Time.deltaTime;
-            //isMoving = true;
+            //rb.AddForce(Vector3.forward * -speed, ForceMode.VelocityChange);
+            rb.velocity = Vector3.forward * -speed;
             animation.SetBool("Moving", true);
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (InputManager.Left())
         {
-            rb.transform.Rotate(transform.up, rotationAngle, Space.World);
+            angle += rotationAngle;
             animation.SetBool("Moving", false);
 
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (InputManager.Right())
         {
-            rb.transform.Rotate(transform.up, -rotationAngle, Space.World);
+            angle -= rotationAngle;
             animation.SetBool("Moving", false);
         }
         else
         {
             animation.SetBool("Moving", false);
-           // isMoving = false;
         }
- 
+        rot = Quaternion.AngleAxis(angle, Vector3.up);
+        transform.rotation = rot;
     }
-    public void ResetPosition()
-    {
-        transform.position = inicialPosition;
-        transform.rotation = inicialRotation;
-    }   
+    //public void ResetPosition()
+    //{
+    //    transform.position = inicialPosition;
+    //    transform.rotation = inicialRotation;
+    //}   
     
     //Before performing physics calculations
     //void FixedUpdate()
